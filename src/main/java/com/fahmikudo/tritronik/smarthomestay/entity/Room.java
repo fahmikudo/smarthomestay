@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "room")
@@ -21,9 +22,8 @@ public class Room extends BaseEntity {
     private BigDecimal price;
     private Double latitude;
     private Double longitude;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_detail_id", referencedColumnName = "id")
-    private OrderDetail orderDetail;
+    @OneToMany(mappedBy = "room")
+    private Set<OrderDetail> orderDetails;
 
 
 }

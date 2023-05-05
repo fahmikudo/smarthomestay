@@ -24,15 +24,14 @@ public class Order extends BaseEntity {
     private LocalDateTime checkOutTime;
     private String notes;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_detail_id", referencedColumnName = "id")
-    private OrderDetail orderDetail;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_payment_id", referencedColumnName = "id")
-    private OrderPayment orderPayment;
+    @OneToMany(mappedBy = "order")
+    private Set<OrderDetail> orderDetails;
 
     @OneToMany(mappedBy = "order")
-    private Set<Users> users;
+    private Set<OrderPayment> orderPayments;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Users user;
 
 }

@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -23,7 +21,8 @@ public class OrderPayment extends BaseEntity {
     private String paymentType;
     private String paymentStatus;
 
-    @OneToMany(mappedBy = "orderPayment")
-    private Set<Order> orders;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
 
 }

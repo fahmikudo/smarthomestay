@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -31,8 +32,7 @@ public class Users extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Order order;
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders;
 
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "additional_facilities")
@@ -20,8 +21,7 @@ public class AdditionalFacilities extends BaseEntity {
     private String facilityType;
     private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_additional_id", referencedColumnName = "id")
-    private OrderAdditional orderAdditional;
+    @OneToMany(mappedBy = "additionalFacilities")
+    private Set<OrderAdditional> orderAdditional;
 
 }

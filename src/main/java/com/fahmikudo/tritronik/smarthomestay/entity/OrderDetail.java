@@ -21,13 +21,15 @@ public class OrderDetail extends BaseEntity {
     private Integer qty;
     private String notes;
 
-    @OneToMany(mappedBy = "orderDetail")
-    private Set<Order> orders;
-    @OneToMany(mappedBy = "orderDetail")
-    private Set<Room> rooms;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_detail_id", referencedColumnName = "id")
-    private OrderAdditional orderAdditional;
+    @JoinColumn(name = "room_id", referencedColumnName = "id")
+    private Room room;
+
+    @OneToMany(mappedBy = "orderDetail")
+    private Set<OrderAdditional> orderAdditionals;
 
 }
