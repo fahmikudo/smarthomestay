@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // allow auth url
                 .antMatchers("/users/register").permitAll()
                 .antMatchers("/users").permitAll()
-                .antMatchers("/console/**").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/users/login").permitAll()
                 .antMatchers("/test/**").permitAll()
                 .anyRequest().authenticated();
