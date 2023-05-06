@@ -2,18 +2,21 @@ package com.fahmikudo.tritronik.smarthomestay.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
-public class ResultResponse {
+public class PageResponse {
 
-    private Object data;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private PageResponse page;
+    private Long totalData;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Integer totalPage;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Integer size;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Integer page;
 
 }
