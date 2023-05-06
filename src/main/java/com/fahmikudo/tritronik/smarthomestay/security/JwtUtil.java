@@ -47,12 +47,9 @@ public class JwtUtil {
         }
     }
 
-    public String generateToken(LoginAbleUser user, List<SimpleGrantedAuthority> authorities) {
+    public String generateToken(LoginAbleUser user) {
         Map<String, Object> claims = new HashMap<>();
         List<String> roles = new ArrayList<>();
-        for (GrantedAuthority a : authorities) {
-            roles.add(a.getAuthority());
-        }
         return doGenerateToken(claims, user.getUsername());
     }
 

@@ -17,8 +17,11 @@ import java.util.Set;
 @NoArgsConstructor
 public class OrderDetail extends BaseEntity {
 
+    @Column(name = "price")
     private BigDecimal price;
+    @Column(name = "qty")
     private Integer qty;
+    @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;
 
     @ManyToOne(fetch = FetchType.EAGER)

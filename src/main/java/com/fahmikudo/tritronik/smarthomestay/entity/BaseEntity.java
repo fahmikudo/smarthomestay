@@ -31,6 +31,7 @@ public class BaseEntity implements Serializable {
 
     @PrePersist
     public void prePersist() {
+        this.createdBy = "SYSTEM";
         this.createdAt = LocalDateTime.now();
     }
 

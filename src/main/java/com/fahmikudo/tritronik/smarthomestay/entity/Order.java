@@ -18,10 +18,15 @@ import java.util.Set;
 @NoArgsConstructor
 public class Order extends BaseEntity {
 
+    @Column(name = "total_price")
     private BigDecimal totalPrice;
+    @Column(name = "total_qty")
     private Integer totalQty;
+    @Column(name = "check_in_time")
     private LocalDateTime checkInTime;
+    @Column(name = "check_out_time")
     private LocalDateTime checkOutTime;
+    @Column(name = "notes")
     private String notes;
 
     @OneToMany(mappedBy = "order")
@@ -32,6 +37,6 @@ public class Order extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Users user;
+    private User user;
 
 }

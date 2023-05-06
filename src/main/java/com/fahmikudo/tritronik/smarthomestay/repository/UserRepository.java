@@ -1,14 +1,13 @@
 package com.fahmikudo.tritronik.smarthomestay.repository;
 
-import com.fahmikudo.tritronik.smarthomestay.entity.Users;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.fahmikudo.tritronik.smarthomestay.entity.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends BaseRepository<Users> {
+public interface UserRepository extends BaseRepository<User> {
 
-    Optional<Users> findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
 }

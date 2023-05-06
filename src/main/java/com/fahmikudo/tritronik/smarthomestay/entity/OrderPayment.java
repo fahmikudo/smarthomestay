@@ -10,15 +10,18 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
-@Table(name = "order_payment")
+@Table(name = "order_payments")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderPayment extends BaseEntity {
 
+    @Column(name = "total_amount")
     private BigDecimal totalAmount;
+    @Column(name = "payment_type", length = 10)
     private String paymentType;
+    @Column(name = "payment_status", length = 10)
     private String paymentStatus;
 
     @ManyToOne(fetch = FetchType.EAGER)

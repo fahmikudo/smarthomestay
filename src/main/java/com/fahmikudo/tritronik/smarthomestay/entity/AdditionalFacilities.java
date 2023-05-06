@@ -17,8 +17,11 @@ import java.util.Set;
 @NoArgsConstructor
 public class AdditionalFacilities extends BaseEntity {
 
+    @Column(name = "facility_name", length = 100)
     private String facilityName;
+    @Column(name = "facility_type", length = 100)
     private String facilityType;
+    @Column(name = "price")
     private BigDecimal price;
 
     @OneToMany(mappedBy = "additionalFacilities")

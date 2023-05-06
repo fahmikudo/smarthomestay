@@ -47,11 +47,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // allow auth url
                 .antMatchers("/users/register").permitAll()
-                .antMatchers("/users").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/users/login").permitAll()
                 .antMatchers("/test/**").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and()
+                .csrf().disable()
+                .headers().frameOptions().disable();;
 
         // custom JWT based security filter
         httpSecurity.addFilterBefore(authenticationFilterBean(), UsernamePasswordAuthenticationFilter.class);
