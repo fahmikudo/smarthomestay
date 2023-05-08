@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -23,9 +24,11 @@ public class Order extends BaseEntity {
     @Column(name = "total_qty")
     private Integer totalQty;
     @Column(name = "check_in_time")
-    private LocalDateTime checkInTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date checkInTime;
     @Column(name = "check_out_time")
-    private LocalDateTime checkOutTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date checkOutTime;
     @Column(name = "notes")
     private String notes;
 

@@ -16,13 +16,9 @@ import com.fahmikudo.tritronik.smarthomestay.security.PBKDF2Encoder;
 import com.fahmikudo.tritronik.smarthomestay.util.ResponseStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,7 +39,7 @@ public class UserService {
         return user.get();
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public UserRegisterResponse registerUser(UserRegisterRequest userRegisterRequest) {
 
         Optional<User> user = userRepository.findByUsername(userRegisterRequest.getUsername());
