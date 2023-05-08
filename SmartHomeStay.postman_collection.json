@@ -1,0 +1,264 @@
+{
+	"info": {
+		"_postman_id": "c8edbbd6-b55b-4b72-9adc-e8f4174189c3",
+		"name": "SmartHomeStay",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18478291"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"fahmikudo\",\n    \"password\": \"qwerty123\",\n    \"email\": \"fahmi.kudo12@gmail.com\",\n    \"userType\": \"CUSTOMER\",\n    \"fullName\": \"Fahmi Kudo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"fahmikudo\",\n    \"password\": \"qwerty123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Room",
+			"item": [
+				{
+					"name": "Get All Room",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYWhtaWt1ZG8iLCJpYXQiOjE2ODM1MTM3OTQsImV4cCI6MTY4MzU4NTc5NH0.5NfxA6nWwJuGbI9F1wnkR2mWQ80YzJ3anxgohTGGDKCZrSuvonot1qIKRWvksJ9Tp_Hn7FJk-I_xBJwyYpPJ1A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/room?page=1&size=10&keyword=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"room"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "keyword",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Additional Facility",
+			"item": [
+				{
+					"name": "Get All Additional Facility",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYWhtaWt1ZG8iLCJpYXQiOjE2ODM1MTM3OTQsImV4cCI6MTY4MzU4NTc5NH0.5NfxA6nWwJuGbI9F1wnkR2mWQ80YzJ3anxgohTGGDKCZrSuvonot1qIKRWvksJ9Tp_Hn7FJk-I_xBJwyYpPJ1A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/additional-facility?page=1&size=10&keyword",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"additional-facility"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "keyword",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Check - In",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYWhtaWt1ZG8iLCJpYXQiOjE2ODM1MTYxNDIsImV4cCI6MTY4MzU4ODE0Mn0.mfM1OQ-EIaYvHbCxj_BnKfxXoTJLYJ1K1Dft-GQjv_6nD9hRzmxS-sPX5yoHdgri6kavjepKeyEE12TeSGlV1w",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"checkInTime\": \"2023-05-07 10:00:00\",\n    \"notes\": \"Terlambat sekitar 1 jam an\",\n    \"orderPayment\": {\n        \"totalAmount\": 1000000,\n        \"paymentType\": \"QRIS\",\n        \"paymentStatus\": \"PAID\",\n        \"notes\": \"\"\n    },\n    \"itemOrders\": [\n        {\n            \"roomId\": 10,\n            \"qty\": 1,\n            \"notes\": \"smoking room\",\n            \"additionalRequests\": [\n                {\n                    \"additionalFacilityId\": 5,\n                    \"qty\": 1,\n                    \"notes\": \"\"\n                }\n            ]\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/order/check-in",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"check-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check - Out",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYWhtaWt1ZG8iLCJpYXQiOjE2ODM1MTYxNDIsImV4cCI6MTY4MzU4ODE0Mn0.mfM1OQ-EIaYvHbCxj_BnKfxXoTJLYJ1K1Dft-GQjv_6nD9hRzmxS-sPX5yoHdgri6kavjepKeyEE12TeSGlV1w",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"checkOutTime\": \"2023-05-07 23:59:59\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/order/check-out/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"check-out",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Calculate Payment",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYWhtaWt1ZG8iLCJpYXQiOjE2ODM1MTYxNDIsImV4cCI6MTY4MzU4ODE0Mn0.mfM1OQ-EIaYvHbCxj_BnKfxXoTJLYJ1K1Dft-GQjv_6nD9hRzmxS-sPX5yoHdgri6kavjepKeyEE12TeSGlV1w",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/order/calculate-payment/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"calculate-payment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

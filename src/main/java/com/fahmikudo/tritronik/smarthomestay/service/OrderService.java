@@ -2,10 +2,7 @@ package com.fahmikudo.tritronik.smarthomestay.service;
 
 import com.fahmikudo.tritronik.smarthomestay.entity.*;
 import com.fahmikudo.tritronik.smarthomestay.exception.InvalidRequestException;
-import com.fahmikudo.tritronik.smarthomestay.model.order.CheckInRequest;
-import com.fahmikudo.tritronik.smarthomestay.model.order.OrderAdditionalRequest;
-import com.fahmikudo.tritronik.smarthomestay.model.order.OrderRequest;
-import com.fahmikudo.tritronik.smarthomestay.model.order.OrderResponse;
+import com.fahmikudo.tritronik.smarthomestay.model.order.*;
 import com.fahmikudo.tritronik.smarthomestay.repository.*;
 import com.fahmikudo.tritronik.smarthomestay.util.ResponseStatus;
 import lombok.RequiredArgsConstructor;
@@ -105,5 +102,37 @@ public class OrderService {
         return new OrderResponse(order.getId());
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public CheckOutResponse checkOut(Long orderId, CheckOutRequest checkOutRequest, User user) {
+        Optional<Order> order = orderRepository.findById(orderId);
+        if (!order.isPresent()) {
+            throw new InvalidRequestException(ResponseStatus.INVALID_REQUEST.getMessage(), "order with id " + orderId + " not found.");
+        }
+
+        order.get().setCheckOutTime(checkOutRequest.getCheckOutTime());
+        order.get().setUser(user);
+        orderRepository.save(order.get());
+
+        return new CheckOutResponse(order.get().getId());
+    }
+
+    @Transactional(readOnly = true)
+    public CalculatePaymentResponse calculatePayment(Long orderId) {
+        Optional<Order> order = orderRepository.findById(orderId);
+        if (!order.isPresent()) {
+            throw new InvalidRequestException(ResponseStatus.INVALID_REQUEST.getMessage(), "order with id " + orderId + " not found.");
+        }
+
+        Optional<OrderPayment> orderPayment = orderPaymentRepository.findOrderPaymentByOrder(order.get());
+        if (!orderPayment.isPresent()) {
+            throw new InvalidRequestException(ResponseStatus.INVALID_REQUEST.getMessage(), "order payment with order id " + orderId + " not found.");
+        }
+
+        return CalculatePaymentResponse.builder()
+                .totalAmount(orderPayment.get().getTotalAmount())
+                .paymentType(orderPayment.get().getPaymentType())
+                .paymentStatus(orderPayment.get().getPaymentStatus())
+                .build();
+    }
 
 }

@@ -2,8 +2,7 @@ package com.fahmikudo.tritronik.smarthomestay.controller;
 
 import com.fahmikudo.tritronik.smarthomestay.entity.Order;
 import com.fahmikudo.tritronik.smarthomestay.entity.User;
-import com.fahmikudo.tritronik.smarthomestay.model.order.CheckInRequest;
-import com.fahmikudo.tritronik.smarthomestay.model.order.OrderResponse;
+import com.fahmikudo.tritronik.smarthomestay.model.order.*;
 import com.fahmikudo.tritronik.smarthomestay.service.OrderService;
 import com.fahmikudo.tritronik.smarthomestay.service.UserService;
 import com.fahmikudo.tritronik.smarthomestay.util.BaseResponse;
@@ -14,10 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
@@ -43,6 +39,51 @@ public class OrderController {
 
             ResultResponse resultResponse = ResultResponse.builder()
                     .data(orderResponse)
+                    .build();
+
+            baseResponse = new BaseResponse(ResponseStatus.SUCCESS, resultResponse);
+            return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResponse = new BaseResponse(ResponseStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+        }
+    }
+
+    @PutMapping(value = "/check-out/{orderId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse> checkOut(
+            @PathVariable("orderId") Long orderId,
+            @RequestBody CheckOutRequest checkOutRequest) {
+        try {
+            User user = getUserActiveFromContext();
+
+            CheckOutResponse checkOutResponse = orderService.checkOut(orderId, checkOutRequest, user);
+
+            ResultResponse resultResponse = ResultResponse.builder()
+                    .data(checkOutResponse)
+                    .build();
+
+            baseResponse = new BaseResponse(ResponseStatus.SUCCESS, resultResponse);
+            return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResponse = new BaseResponse(ResponseStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+        }
+
+    }
+
+    /**
+     * need add several order information
+     * @param orderId
+     * @return
+     */
+    @GetMapping(value = "/calculate-payment/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse> calculatePayment(@PathVariable("orderId") Long orderId) {
+        try {
+            CalculatePaymentResponse calculatePaymentResponse = orderService.calculatePayment(orderId);
+            ResultResponse resultResponse = ResultResponse.builder()
+                    .data(calculatePaymentResponse)
                     .build();
 
             baseResponse = new BaseResponse(ResponseStatus.SUCCESS, resultResponse);
