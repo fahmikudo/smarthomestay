@@ -14,9 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +24,7 @@ public class RoomService {
 
     @Transactional(readOnly = true)
     public ListRoomResponse getAllRoom(int size, int page, String keyword) {
+        // Update blablabla
         Pageable pageable = PageRequest.of(page - 1, size, Sort.by("createdAt").descending());
         Page<Room> rooms;
         if (keyword != null) {
